@@ -41,19 +41,7 @@ export default function Settings() {
 			}).then(response => {
 				return response.json()
 			}).then(data => {
-				const responseTable = data.data
-				let tableData: Object[] = []
-				if (responseTable != null) {
-					for (let i = 0; i < responseTable.length; i++) {
-						let formatItem = responseTable[i].item
-						formatItem["iid"] = responseTable[i].iid
-						formatItem["amount"] = Number(formatItem["amount"]) / 100
-						formatItem["unit"] = "dollars"
-						formatItem["action"] = {"iid":responseTable[i].iid}
-						tableData = [...tableData, formatItem]
-					}
-				}
-				setTableDataDevelopment(()=>[...tableData])
+				setTableDataDevelopment(()=>[...data.data])
 			})
 		}
 		getDevelopmentTableData()
