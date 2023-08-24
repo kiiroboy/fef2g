@@ -202,13 +202,13 @@ export default function DevelopmentTable(props: { tableData: any }) {
 	const preprocessedData = data.map(item => {
 		// Check if all required fields exist and format them if needed
 		const formattedItem = {
-		...item,
-		iid: item.iid,
-		product_name: item.item.uname,
-		category: item.item.category,
-		amount: Number(item.item.amount) / 100,
-		unit: 'dollars',
-		action: item.iid ? { iid: item.iid } : null,
+			...item,
+			iid: item.iid,
+			product_name: item.item.uname,
+			category: item.item.category,
+			amount: Number(item.item.amount) / 100,
+			unit: 'dollars',
+			action: item.iid ? { iid: item.iid } : null,
 		};
 	
 		return formattedItem;
