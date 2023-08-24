@@ -172,8 +172,19 @@ export default function DevelopmentTable(props: { tableData: any }) {
 						bg={bgList}
 						_hover={bgHover}
 						_focus={bgFocus}
-						onClick={() => deleteDevelopmentTableData(info.getValue())}
 						icon={<Icon as={MdMode} color={iconButtonColor} w='24px' h='24px' />}
+					/>
+					<IconButton
+						aria-label={"button"}
+						alignItems='center'
+						justifyContent='center'
+						lineHeight='100%'
+						borderRadius='10px'
+						bg={bgList}
+						_hover={bgHover}
+						_focus={bgFocus}
+						onClick={() => deleteDevelopmentTableData(info.getValue().iid)}
+						icon={<Icon as={MdDelete} color={dangerButtonColor} w='24px' h='24px' />}
 					/>
 					{/*
 					<Text me='10px' color={textColor} fontSize='sm' fontWeight='700'>

@@ -27,10 +27,9 @@ import {useEffect, useState} from "react";
 
 export default function Settings() {
 	let [tableDataDevelopment, setTableDataDevelopment] = useState([])
-	let [changed, setChanged] = useState(false)
 	useEffect(() => {
-		const getDevelopmentTableData = async () => {
-			await fetch('http://localhost:3006', {
+		const getDevelopmentTableData = () => {
+			fetch('http://localhost:3006', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -50,7 +49,7 @@ export default function Settings() {
 						formatItem["iid"] = responseTable[i].iid
 						formatItem["amount"] = Number(formatItem["amount"]) / 100
 						formatItem["unit"] = "dollars"
-						formatItem["action"] = responseTable[i].iid
+						formatItem["action"] = {"iid":responseTable[i].iid}
 						tableData = [...tableData, formatItem]
 					}
 				}
@@ -63,7 +62,8 @@ export default function Settings() {
 		return (
 			<Box pt={{base: '130px', md: '80px', xl: '80px'}}>
 				<SimpleGrid mb='20px' columns={{sm: 1, md: 1}} spacing={{base: '20px', xl: '20px'}}>
-					{tableDataDevelopment.length>0 && <DevelopmentTable tableData={tableDataDevelopment}/>}
+					{tableDataDevelopment.length > 0 && <DevelopmentTable tableData={tableDataDevelopment}/>}
+					{tableDataDevelopment.length == 0 && <DevelopmentTable tableData={tableDataDevelopment}/>}
 					{/*<CheckTable tableData={tableDataCheck} />
 				<ColumnsTable tableData={tableDataColumns} />
 				<ComplexTable tableData={tableDataComplex} />
