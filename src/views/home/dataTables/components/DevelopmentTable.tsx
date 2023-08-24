@@ -39,7 +39,22 @@ export default function DevelopmentTable(props: { tableData: any }) {
 	const bgButton = useColorModeValue('secondaryGray.300', 'whiteAlpha.100');
 	const bgHover = useColorModeValue({ bg: 'secondaryGray.400' }, { bg: 'whiteAlpha.50' });
 	const bgFocus = useColorModeValue({ bg: 'white' }, { bg: 'whiteAlpha.100' });
-	let defaultData = tableData;
+	const deleteDevelopmentTableData = async (iid:Number) => {
+		await fetch('http://localhost:3006/delete', {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				"iid": iid
+			})
+		}).then(response => {
+			return response.json()
+		}).then(responseData => {
+			setData((data => data.filter((item)=>item.iid != responseData.data.iid)))
+		})
+	}
 	const columns = [
 		columnHelper.accessor('iid', {
 			id: 'iid',
@@ -157,7 +172,7 @@ export default function DevelopmentTable(props: { tableData: any }) {
 						bg={bgList}
 						_hover={bgHover}
 						_focus={bgFocus}
-						onClick={info.getValue()}
+						onClick={() => deleteDevelopmentTableData(info.getValue())}
 						icon={<Icon as={MdMode} color={iconButtonColor} w='24px' h='24px' />}
 					/>
 					{/*
@@ -171,7 +186,7 @@ export default function DevelopmentTable(props: { tableData: any }) {
 			)
 		})
 	];
-	const [ data, setData ] = React.useState(() => [ ...defaultData ]);
+	const [ data, setData ] = React.useState(() => [ ...tableData ]);
 	const table = useReactTable({
 		data,
 		columns,
